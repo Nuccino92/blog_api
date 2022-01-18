@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import passport from "passport";
 import cors from "cors";
 
+import postsRoutes from "./routes/posts.js";
+
 const app = express();
 
 // handle post bodies
@@ -27,5 +29,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
 app.get("/", (req, res) => {
-  console.log(db);
+  res.send("YOU ARE ON THE HOMEPAGE");
 });
+
+app.use("/posts", postsRoutes);
