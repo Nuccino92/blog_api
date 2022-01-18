@@ -12,7 +12,7 @@ const Post = mongoose.model(
       },
       content: {
         type: String,
-        required: truee,
+        required: true,
       },
       comments: {
         type: Array,
@@ -30,4 +30,4 @@ const Post = mongoose.model(
   )
 );
 
-module.exports = Post;
+export default Post;
