@@ -1,0 +1,11 @@
+@import url("./components/Posts/Post/Comments/Comments.css");
+@import url("./components/Footer/Footer.css");
+@import url("./components/Nav/Nav.css");
+@import url("./components/LogIn/Log-in.css");
+@import url("./components/Posts/Posts.css");
+@import url("./components/Register/Register.css");
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
