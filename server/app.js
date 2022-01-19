@@ -8,16 +8,17 @@ import postsRoutes from "./routes/posts.js";
 
 const app = express();
 
-// handle post bodies
-app.use(express.urlencoded({ extended: false }));
+// handles front end request body
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 
 dotenv.config();
 const dbURI = process.env.MONGOOSE_URI;
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8000;
 
-// mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose
   .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() =>
@@ -27,9 +28,5 @@ mongoose
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
-
-app.get("/", (req, res) => {
-  res.send("YOU ARE ON THE HOMEPAGE");
-});
 
 app.use("/posts", postsRoutes);
