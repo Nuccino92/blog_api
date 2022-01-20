@@ -3,9 +3,20 @@
 @import url("./components/Nav/Nav.css");
 @import url("./components/LogIn/Log-in.css");
 @import url("./components/Posts/Posts.css");
+@import url("./components//Posts//Post/Post.css");
 @import url("./components/Register/Register.css");
+@import url("./components//UserNav/UserNav.css");
 
 * {
   margin: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+li {
+  list-style-type: none;
 }
