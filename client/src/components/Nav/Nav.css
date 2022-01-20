@@ -13,3 +13,15 @@
   font-size: 1.25rem;
   vertical-align: middle;
 }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-right > a {
+  color: red;
+  font-size: 1.1rem;
+  margin-right: 15px;
+  letter-spacing: 0.2px;
+}
