@@ -1,4 +1,5 @@
 import Post from "../models/post.js";
+import jwt from "jsonwebtoken";
 
 export const getPosts_Index = async (req, res) => {
   try {
@@ -17,6 +18,15 @@ export const createPost_Post = async (req, res) => {
     await newPost.save();
     res.status(201).json(newPost);
   } catch (err) {
-    res.status(409).json({ message: err.message });
+    res.status(500).json({ message: err.message });
   }
+};
+
+export const editPost_Put = async (req, res) => {
+  const post = req.body;
+  const { id } = req.params;
+
+  const updated = await Post.findByIdAndUpdate(id, post, { new: true });
+
+  res.json(updated);
 };
