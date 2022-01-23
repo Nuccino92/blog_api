@@ -12,14 +12,16 @@ const User = mongoose.model(
       username: {
         type: String,
         required: true,
+        maxlength: 23,
       },
       password: {
         type: String,
         required: true,
+        minlength: 6,
       },
     },
     { timestamps: true }
   )
 );
 
-module.exports = User;
+export default User;
