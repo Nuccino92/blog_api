@@ -1,27 +1,37 @@
-import { useState } from "react";
-import { logInRequest } from "../../api/log-in";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { logInUser } from "../../actions/user";
 
 const LogIn = () => {
   const [userData, setUserData] = useState({
-    username: "",
+    email: "",
     password: "",
   });
+  // const [errorMessage, setErrorMessage] = useState("");
+
+  // const states = useSelector((state) => state.errorReducer);
+
+  // useEffect(() => {
+  //   setErrorMessage(states.message.message);
+  // }, [states, errorMessage]);
+
+  // useEffect(() => {
+  //   setErrorMessage("");
+  // }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    logInRequest(userData);
+    logInUser(userData);
   };
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">username</label>
+        <label htmlFor="email">email</label>
         <input
           type="text"
-          value={userData.username}
-          onChange={(e) =>
-            setUserData({ ...userData, username: e.target.value })
-          }
+          value={userData.email}
+          onChange={(e) => setUserData({ ...userData, email: e.target.value })}
         ></input>
         <label htmlFor="password">password</label>
         <input
@@ -33,6 +43,7 @@ const LogIn = () => {
         ></input>
         <button type="submit">submit</button>
       </form>
+      {/* {errorMessage !== "" && <div>{errorMessage}</div>} */}
     </div>
   );
 };
