@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 // action creator
-import { getPosts } from "./actions/posts";
+import { fetchPosts } from "./actions/posts";
 import Homepage from "./components/Homepage/Homepage";
 import Footer from "./components/Footer/Footer";
 import Posts from "./components/Posts/Posts";
@@ -13,14 +13,20 @@ import Nav from "./components/Nav/Nav";
 import PostForm from "./components/PostForm/PostForm";
 import UserNav from "./components/UserNav/UserNav";
 
+import { loadUser } from "./actions/user";
+
 const App = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(true);
+  const [user, setUser] = useState(false);
 
   useEffect(() => {
     // dispatches action creator getPosts
-    dispatch(getPosts());
+    dispatch(fetchPosts());
   }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(loadUser());
+  });
 
   return (
     <BrowserRouter>
