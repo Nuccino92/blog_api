@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 // action creator
 import { fetchPosts } from "./actions/posts";
 import Homepage from "./components/Homepage/Homepage";
@@ -14,10 +14,14 @@ import PostForm from "./components/PostForm/PostForm";
 import UserNav from "./components/UserNav/UserNav";
 
 import { loadUser } from "./actions/user";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [user, setUser] = useState(false);
+
+  const { isAuthenticated, user, isLoading } = useSelector(
+    (state) => state.userReducer
+  );
 
   useEffect(() => {
     // dispatches action creator getPosts
@@ -26,19 +30,21 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadUser());
-  });
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
       <div className="app">
         {" "}
-        {user ? <UserNav /> : <Nav />}
+        {isAuthenticated ? <UserNav /> : <Nav />}
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/posts" element={<Posts />} />
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/create" element={<PostForm />} />
+          <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
+            <Route path="/create" element={<PostForm />} />
+          </Route>
         </Routes>
         <Footer />
       </div>{" "}
