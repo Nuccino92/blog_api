@@ -14,18 +14,18 @@ const Register = () => {
   });
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const states = useSelector((state) => state.errorReducer);
+  const { message, id } = useSelector((state) => state.errorReducer);
   // if register_fail set error message, if register_success navigate to home
   useEffect(() => {
-    if (states.id === "REGISTER_FAIL") {
-      setErrorMessage(states.message.message);
+    if (id === "REGISTER_FAIL") {
+      setErrorMessage(message.message);
     } else {
       setErrorMessage(null);
     }
-    if (states.id === "REGISTER_SUCCESS") {
+    if (id === "REGISTER_SUCCESS") {
       navigate("/");
     }
-  }, [states, errorMessage, navigate]);
+  }, [errorMessage, id, message.message, navigate]);
 
   // resets errors on page load
   useEffect(() => {
