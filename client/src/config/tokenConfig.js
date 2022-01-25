@@ -1,15 +1,15 @@
+// gets token and puts in headers
 export const tokenConfig = (getState) => {
   // gets token from userReducer intial state
   const token = getState().userReducer.token;
 
   const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: {},
   };
   // if token add to headers
   if (token) {
-    config.headers["Authorization"] = token;
+    config.headers["Authorization"] = `Bearer ${token}`;
   }
+  console.log(config);
   return config;
 };
