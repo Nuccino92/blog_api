@@ -14,6 +14,7 @@ import {
   REGISTER_FAIL,
   AUTH_ERR,
   CLEAR_ERRORS,
+  // CLEAR_ERRORS,
 } from "./types";
 
 // check token and load user
@@ -52,8 +53,8 @@ export const createUser = (userData) => async (dispatch) => {
 export const logInUser = (userData) => async (dispatch) => {
   try {
     const res = await logInRequest(userData);
-    console.log(res);
     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
+    dispatch(returnErrors({}, null, "LOGIN_SUCCESS"));
   } catch (err) {
     dispatch(
       returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
@@ -61,5 +62,15 @@ export const logInUser = (userData) => async (dispatch) => {
     dispatch({
       type: LOGIN_FAIL,
     });
+  }
+};
+
+export const logOutUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOGOUT_SUCCESS });
+    // prevents having to log in twice after log out
+    dispatch({ type: CLEAR_ERRORS });
+  } catch (err) {
+    console.log(err);
   }
 };
