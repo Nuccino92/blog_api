@@ -1,28 +1,39 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { clearErrors } from "../../actions/error";
 import { logInUser } from "../../actions/user";
 
 const LogIn = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  // const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  // const states = useSelector((state) => state.errorReducer);
+  const { message, id } = useSelector((state) => state.errorReducer);
+  useEffect(() => {
+    if (id === "LOGIN_FAIL") {
+      setErrorMessage(message.message);
+    } else {
+      setErrorMessage(null);
+    }
+    if (id === "LOGIN_SUCCESS") {
+      navigate("/");
+    }
+  }, [errorMessage, navigate, id, message.message]);
 
-  // useEffect(() => {
-  //   setErrorMessage(states.message.message);
-  // }, [states, errorMessage]);
-
-  // useEffect(() => {
-  //   setErrorMessage("");
-  // }, []);
+  // resets errors on page load
+  useEffect(() => {
+    dispatch(clearErrors());
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    logInUser(userData);
+    dispatch(logInUser(userData));
   };
   return (
     <div>
@@ -43,7 +54,7 @@ const LogIn = () => {
         ></input>
         <button type="submit">submit</button>
       </form>
-      {/* {errorMessage !== "" && <div>{errorMessage}</div>} */}
+      {errorMessage !== "" && <div>{errorMessage}</div>}
     </div>
   );
 };
