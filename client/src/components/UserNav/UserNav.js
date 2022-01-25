@@ -1,6 +1,14 @@
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logOutUser } from "../../actions/user";
 
 const UserNav = () => {
+  const dispatch = useDispatch();
+
+  const handleClick = () => {
+    dispatch(logOutUser());
+  };
+
   return (
     <div className="nav">
       <Link to={"/"}>
@@ -10,7 +18,7 @@ const UserNav = () => {
         <Link to={"/create"}>
           <li> Post Blog </li>
         </Link>
-        <li>Log Out</li>
+        <li onClick={handleClick}>Log Out</li>
       </ul>
     </div>
   );
