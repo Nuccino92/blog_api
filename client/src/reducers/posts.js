@@ -5,8 +5,9 @@ const postReducer = (state = [], action) => {
     // do something here based on different types of actions
     case "FETCH_ALL":
       return action.payload;
-    case "CREATE":
-      return state;
+    case "CREATE_POST":
+      // pushing payload(created post) to end of state
+      return [...state, action.payload];
     default:
       return state;
   }
