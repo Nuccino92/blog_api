@@ -2,7 +2,6 @@
 export const tokenConfig = (getState) => {
   // gets token from userReducer intial state
   const token = getState().userReducer.token;
-
   const config = {
     headers: {},
   };
@@ -10,6 +9,5 @@ export const tokenConfig = (getState) => {
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }
-  console.log(config);
   return config;
 };
