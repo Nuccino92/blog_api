@@ -1,5 +1,4 @@
 import Post from "../models/post.js";
-import jwt from "jsonwebtoken";
 
 export const getPosts_Index = async (req, res) => {
   try {
@@ -19,6 +18,18 @@ export const createPost_Post = async (req, res) => {
     res.status(201).json(newPost);
   } catch (err) {
     res.status(500).json({ message: err.message });
+  }
+};
+
+export const deletePost_Delete = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await Post.findById(id);
+    await post.remove();
+    res.status(200).json({ message: "Post deleted" });
+  } catch (err) {
+    return res.status(400).json({ message: "Could not find post" });
   }
 };
 
