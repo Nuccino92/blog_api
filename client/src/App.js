@@ -15,6 +15,7 @@ import UserNav from "./components/UserNav/UserNav";
 
 import { loadUser } from "./actions/user";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import Post from "./components/Posts/Post/Post";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/posts" element={<Posts />} />
+          <Route path="/posts/:id" element={<Post />} />
           <Route path="/log-in" element={<LogIn />} />
           <Route path="/register" element={<Register />} />
           <Route element={<PrivateRoute isAuthenticated={isAuthenticated} />}>
