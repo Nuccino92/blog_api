@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { postPosts } from "../../actions/posts";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createPosts } from "../../actions/posts";
 
 const PostForm = () => {
   const dispatch = useDispatch();
@@ -10,11 +10,16 @@ const PostForm = () => {
     published: undefined,
     author: "anthony",
   });
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const states = useSelector((state) => state.errorReducer);
+  useEffect(() => {
+    setErrorMessage(states.message.message);
+  }, [states, errorMessage]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    dispatch(postPosts(postData));
+    dispatch(createPosts(postData));
   };
 
   return (
@@ -55,9 +60,9 @@ const PostForm = () => {
           />
           <label htmlFor="publishedFalse">No</label>
         </fieldset>
-
         <button type="submit">Submit</button>
       </form>
+      {errorMessage !== "" && <div>{errorMessage}</div>}
     </div>
   );
 };
